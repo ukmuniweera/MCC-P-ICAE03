@@ -1,42 +1,30 @@
-import React, { useState } from 'react';
-import { Button, FlatList, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Title } from 'react-native-paper';
-import { students } from './StudentsDb';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react'
+import { Button, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
+import { students } from './StudentsDb'
+import { useNavigation } from '@react-navigation/native'
 
 export default function StudentList({ route }) {
-    const [listStudent, setListStudent] = useState(students);
+  const [studentsData, setStudentsData] = useState(students);
+  const navigation = useNavigation();
 
-    React.useEffect(() => {
-        if (route.params?.newStudent) {
-            const { newStudent } = route.params;
-            setListStudent([...listStudent, newStudent]);
-        }
-
-    }, [route.params?.newStudent])
-
-    const navigation = useNavigation();
-    return (
-        <View>
-            <FlatList
-                data={listStudent}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <TouchableOpacity onPress={() => { navigation.navigate('Profile', { student: item }) }}>
-                        <Title>{item.name}</Title>
-                    </TouchableOpacity>
-                )}
-            />
-            <Button title="+" onPress={() => { navigation.navigate('Add') }} />
-        </View>
-    )
+  useEffect(() => {
+    if (route?.params?.newStudent) {
+      const { newStudent } = route.params;
+      setStudentsData(prev => [...prev, newStudent])
+    }
+  }, [route?.params?.newStudent])
+  return (
+    <View>
+      <FlatList
+        data={studentsData}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => navigation.navigate('Profile', { student: item })}>
+            <Text>{item.name}</Text>
+          </TouchableOpacity>
+        )}
+      />
+      <Button title='Add new student' onPress={() => navigation.navigate('Add')} />
+    </View>
+  )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
