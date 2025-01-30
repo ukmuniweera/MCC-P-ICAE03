@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import StudentList from './components/StudentList';
+import { StyleSheet, View } from 'react-native';
+import StudentTab from './components/StudentTab';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StudentList />
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <StudentTab />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
