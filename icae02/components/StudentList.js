@@ -12,19 +12,24 @@ export default function StudentList({ route }) {
       const { newStudent } = route.params;
       setStudentsData(prev => [...prev, newStudent])
     }
-  }, [route?.params?.newStudent])
+    if (route?.params?.deletedStudent) {
+      const { deletedStudent } = route.params;
+      setStudentsData(prev=>prev.filter(student=>student.id!==deletedStudent.id))
+    }
+  }, [route?.params?.newStudent, route?.params?.deletedStudent])
   return (
     <View>
+      <Button title='Add new student' onPress={() => navigation.navigate('Add')} />
       <FlatList
         data={studentsData}
         keyExtractor={item => item.id}
         renderItem={({ item }) => (
           <TouchableOpacity onPress={() => navigation.navigate('Profile', { student: item })}>
+            <Image source={item.profile_pic} />
             <Text>{item.name}</Text>
           </TouchableOpacity>
         )}
       />
-      <Button title='Add new student' onPress={() => navigation.navigate('Add')} />
     </View>
   )
 }
