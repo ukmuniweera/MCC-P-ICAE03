@@ -14,11 +14,11 @@ export default function StudentList({ route }) {
     }
     if (route?.params?.deletedStudent) {
       const { deletedStudent } = route.params;
-      setStudentsData(prev=>prev.filter(student=>student.id!==deletedStudent.id))
+      setStudentsData(prev => prev.filter(student => student.id !== deletedStudent.id))
     }
     if (route?.params?.updatedStudent) {
       const { updatedStudent } = route.params;
-      setStudentsData(prev=>prev.map(student=>(student.id === updatedStudent.id ? updatedStudent : student)));
+      setStudentsData(prev => prev.map(student => (student.id === updatedStudent.id ? updatedStudent : student)));
     }
   }, [route?.params])
   return (

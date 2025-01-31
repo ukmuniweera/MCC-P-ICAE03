@@ -28,7 +28,7 @@ export default function AddStudent() {
       <TextInput placeholder='Age' value={age} onChangeText={setAge} />
       <TextInput placeholder='Gender' value={gender} onChangeText={setGender} />
       <TextInput placeholder='Course' value={course} onChangeText={setCourse} />
-      <Button title='Add' onPress={()=>navigation.popTo('List', { newStudent })} />
+      <Button title='Add' onPress={() => navigation.popTo('List', { newStudent })} />
     </View>
   )
 }
