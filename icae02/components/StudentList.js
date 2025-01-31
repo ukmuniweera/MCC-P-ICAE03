@@ -16,7 +16,11 @@ export default function StudentList({ route }) {
       const { deletedStudent } = route.params;
       setStudentsData(prev=>prev.filter(student=>student.id!==deletedStudent.id))
     }
-  }, [route?.params?.newStudent, route?.params?.deletedStudent])
+    if (route?.params?.updatedStudent) {
+      const { updatedStudent } = route.params;
+      setStudentsData(prev=>prev.map(student=>(student.id === updatedStudent.id ? updatedStudent : student)));
+    }
+  }, [route?.params])
   return (
     <View>
       <Button title='Add new student' onPress={() => navigation.navigate('Add')} />
