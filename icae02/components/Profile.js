@@ -16,8 +16,9 @@ export default function Profile({ route }) {
         <Text>Gender: {student.gender}</Text>
         <Text>Age: {student.age}</Text>
         <Text>Course: {student.course_name}</Text>
-        <Button title='Home' onPress={()=>navigation.popTo('List')} />
-        <Button title='Delete' onPress={()=>navigation.popTo('List',{deletedStudent: student})} />
+        <Button title='Update' onPress={() => navigation.popTo('Update',{student})} />
+        <Button title='Delete' onPress={() => navigation.popTo('List', { deletedStudent: student })} />
+        <Button title='Home' onPress={() => navigation.popTo('List')} />
       </View>
     </ScrollView>
   )
